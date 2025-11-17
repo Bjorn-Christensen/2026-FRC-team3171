@@ -249,6 +249,10 @@ public class SwerveSubsystem extends SubsystemBase{
             tagPose = vision.nearestTagFromList(AprilTagConstants.REEF_TAGS_RED, swerveDrive);
         }
 
+        if (tagPose == null) {
+            return Commands.print("No tag found!");
+        }
+
         // Configure tolerances on every start (safe if called multiple times)
         precisionHDC.setTolerance(
             new Pose2d(POS_TOL_M, POS_TOL_M, new Rotation2d(ANG_TOL_RAD))

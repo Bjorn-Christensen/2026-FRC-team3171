@@ -7,7 +7,6 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -72,7 +71,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // Climb Controls
-    controllerXbox.rightBumper().whileTrue(new ClimberCommand(climberSubsystem, -ClimberConstants.CLIMBER_SPEED));
+    controllerXbox.rightBumper().whileTrue(new ClimberCommand(climberSubsystem, ClimberConstants.CLIMBER_SPEED));
     controllerXbox.leftBumper().whileTrue(new ClimberCommand(climberSubsystem, -ClimberConstants.CLIMBER_SPEED));
 
     // Elevator Controls
@@ -98,8 +97,7 @@ public class RobotContainer {
       try {
         var paths = PathPlannerAuto.getPathGroupFromAutoFile(autoName);
         if (!paths.isEmpty()) {
-          PathPlannerPath firstPath = paths.get(0);
-          Pose2d startPose = firstPath.getPathPoses().get(0);
+          Pose2d startPose = paths.get(0).getPathPoses().get(0);
           swerveSubsystem.primeStartingPose(startPose);
         }
       } catch (Exception e) {

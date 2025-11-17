@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.spark.SparkMax;
@@ -32,7 +33,7 @@ public class ClimberSubsystem extends SubsystemBase{
 
     // Manual climber control
     public void setMotor(double speed) {
-        climberMotor.setVoltage(speed * 12.0); // Speed: [-1,1], use setVoltage() over set() for max and consistent speed under torque
+        climberMotor.setVoltage(MathUtil.clamp(speed, -1, 1) * 12.0); // Speed: [-1,1], use setVoltage() over set() for max and consistent speed under torque
     }
 
     // Telemetry
